@@ -1,0 +1,19 @@
+2025/03/15-01:12:52.318 2f811 Reusing MANIFEST /home/zik/Documents/auto/profile_chrome/profile_3/Default/Local Extension Settings/nkbihfbeogaeaoehlefnkodbefgpgknn/MANIFEST-000001
+2025/03/15-01:12:52.318 2f811 Recovering log #25
+2025/03/15-01:12:52.432 2f811 Level-0 table #28: started
+2025/03/15-01:12:52.549 2f811 Level-0 table #28: 10910253 bytes OK
+2025/03/15-01:12:52.588 2f811 Delete type=0 #25
+2025/03/15-01:12:52.597 2f80c Compacting 4@0 + 0@1 files
+2025/03/15-01:12:52.990 2f80c Generated table #30@0: 1 keys, 10910253 bytes
+2025/03/15-01:12:53.004 2f80c Compacted 4@0 + 0@1 files => 10910253 bytes
+2025/03/15-01:12:53.012 2f80c compacted to: files[ 0 1 2 0 0 0 0 ]
+2025/03/15-01:12:53.013 2f80c Compacting 1@1 + 1@2 files
+2025/03/15-01:12:53.302 2f80c Generated table #31@1: 1 keys, 10910253 bytes
+2025/03/15-01:12:53.304 2f80c Compacted 1@1 + 1@2 files => 10910253 bytes
+2025/03/15-01:12:53.312 2f80c compacted to: files[ 0 0 2 0 0 0 0 ]
+2025/03/15-01:12:53.312 2f80c Delete type=2 #28
+2025/03/15-01:12:53.312 2f80c Delete type=2 #19
+2025/03/15-01:12:53.312 2f80c Delete type=2 #26
+2025/03/15-01:12:53.312 2f80c Delete type=2 #30
+2025/03/15-01:12:53.312 2f80c Delete type=2 #21
+2025/03/15-01:12:53.312 2f80c Delete type=2 #24

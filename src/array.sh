@@ -1,61 +1,63 @@
 #!/bin/bash
 
-# Lấy danh sách các cửa sổ chứa "Google Chrome"
+# Lấy danh sách cửa sổ chứa "Google Chrome"
 windows=$(wmctrl -l | grep -i "Google Chrome")
 
-# Kiểm tra nếu không có cửa sổ "Google Chrome" nào
+# Kiểm tra nếu không có cửa sổ Chrome nào
 if [ -z "$windows" ]; then
   echo "⚠️ Không tìm thấy cửa sổ trình duyệt Google Chrome!"
   exit 1
 fi
 
-# Đếm số lượng cửa sổ
-window_count=$(echo "$windows" | wc -l)
+# Lấy kích thước màn hình
+screen_width=$(xdpyinfo | awk '/dimensions:/ {print $2}' | cut -dx -f1)
+screen_height=$(xdpyinfo | awk '/dimensions:/ {print $2}' | cut -dx -f2)
 
-# Lấy chiều rộng và chiều cao màn hình
-screen_width=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d 'x' -f 1)
-screen_height=$(xdpyinfo | grep 'dimensions:' | awk '{print $2}' | cut -d 'x' -f 2)
+# Kích thước cố định của cửa sổ
+win_width=250
+win_height=400
 
-# Yêu cầu người dùng nhập chiều rộng và chiều cao cho cửa sổ
-echo "Nhập chiều rộng của cửa sổ mong muốn (mặc định: $((screen_width / 5))):"
-read -r win_width
-if [ -z "$win_width" ]; then
-  win_width=$((screen_width / 5))   # Mặc định: chia màn hình thành 5 cột
-fi
+# Khoảng cách giữa các cửa sổ
+gap=20  # 5px
 
-echo "Nhập chiều cao của cửa sổ mong muốn (mặc định: $((screen_height / 10))):"
-read -r win_height
-if [ -z "$win_height" ]; then
-  win_height=$((screen_height / 10))  # Mặc định: chia màn hình thành 10 hàng
-fi
+# Tính số cột có thể đặt trên màn hình
+cols=$(( screen_width / (win_width + gap) ))
 
-# Vị trí bắt đầu
+# Bắt đầu sắp xếp cửa sổ từ vị trí (0,0)
 x_pos=0
 y_pos=0
 
-# Di chuyển và thay đổi kích thước cửa sổ
-counter=1
+# Di chuyển và thay đổi kích thước từng cửa sổ
+counter=0
 echo "$windows" | while read -r line; do
-  # Lấy ID cửa sổ từ dòng đầu tiên của danh sách
   window_id=$(echo "$line" | awk '{print $1}')
-  
-  # Di chuyển cửa sổ với xdotool
+
+  echo "📌 Di chuyển cửa sổ ID: $window_id đến ($x_pos, $y_pos)"
+
+  # Kích hoạt và di chuyển cửa sổ
+  xdotool windowactivate "$window_id"
+  sleep 0.1
+
   xdotool windowmove "$window_id" "$x_pos" "$y_pos"
   xdotool windowsize "$window_id" "$win_width" "$win_height"
-  
-  # Cập nhật vị trí (di chuyển cửa sổ tiếp theo)
-  x_pos=$((x_pos + win_width))
-  if ((x_pos + win_width > screen_width)); then
+
+  sleep 0.1  # Chờ cập nhật vị trí
+
+  # Cập nhật vị trí tiếp theo
+  x_pos=$((x_pos + win_width + gap))  # Cộng thêm khoảng cách
+
+  # Nếu hết cột, xuống hàng mới
+  if (( x_pos + win_width > screen_width )); then
     x_pos=0
-    y_pos=$((y_pos + win_height))
+    y_pos=$((y_pos + win_height + gap))  # Cộng thêm khoảng cách
   fi
 
   counter=$((counter + 1))
   
-  # Nếu đã xử lý hết số lượng cửa sổ tối đa (50)
-  if [ "$counter" -gt 50 ]; then
+  # Giới hạn tối đa 50 cửa sổ
+  if [ "$counter" -ge 50 ]; then
     break
   fi
 done
 
-echo "Đã sắp xếp $counter cửa sổ Google Chrome."
+echo "✅ Đã sắp xếp $counter cửa sổ Google Chrome với kích thước $win_width x $win_height và khoảng cách $gap px!"

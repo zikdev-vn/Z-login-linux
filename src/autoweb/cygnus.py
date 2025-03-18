@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.alert import Alert
 
 def cygnus(driver):
-    driver.get("https://i.cygnus.finance/")
+    driver.get("https://i.cygnus.finance/#_")
 
     time.sleep(5)
 

@@ -1,10 +1,14 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from chromeoptions_auto.chrome_options_auto import chromeoptions_auto 
+from chromeoptions_auto.chrome_options_auto import chromeoptions_auto,chrome_option_webgl
 from concurrent.futures import ThreadPoolExecutor
-
-
+from autoweb.gmail import gmail
+from autoweb.createmetamask import create_metamask
+from autoweb.cygnus import cygnus
+from login_gmail import open_profiles_with_gmails
+import time
+chrome_path = r"/opt/google/chrome/chrome"
 #from auto_diskpay import arrange_windows
 
 chrome_driver_path = r"/home/zik/Documents/auto/chromedriver"
@@ -57,18 +61,23 @@ def open_profiles():
         except ValueError:
             print("⚠️ Vui lòng nhập số!")
 
-from autoweb.gmail import gmail
-from autoweb.createmetamask import create_metamask
-from autoweb.cygnus import cygnus
+
 def open_single_profile(profile_path):
     """Mở một trình duyệt với profile cụ thể và trả về driver"""
     print(f"\n🚀 Đang mở trình duyệt với profile: {profile_path}")
     chrome_options = chromeoptions_auto()
     chrome_options.add_argument(f"--user-data-dir={profile_path}")
 
+    #mo chrome path
+    chrome_options.binary_location = chrome_path
+
     service = Service(chrome_driver_path)
+
     driver = webdriver.Chrome(service=service, options=chrome_options)
-    #driver.get("https://zikdev-vn.github.io/zik")
+
+    driver.get('https://abrahamjuliot.github.io/creepjs/')
+    time.sleep(5)
+    
     
     return driver  # Trả về driver để có thể đóng sau này
 
@@ -81,7 +90,7 @@ def open_multiple_profiles(profiles, drivers):
             
             chrome_options = chromeoptions_auto()  # Khởi tạo chrome_options
             chrome_options.add_argument(f"--user-data-dir={profile}")  # Thêm tùy chọn cho profile
-
+            chrome_options.binary_location = chrome_path
             # Tạo futures cho mỗi profile với chrome_options được truyền vào
             futures.append(executor.submit(open_single_profile_with_options, profile, chrome_options))
 
@@ -96,9 +105,14 @@ def open_single_profile_with_options(profile_path, chrome_options):
     
     service = Service(chrome_driver_path)
     try:
+        chrome_options = chromeoptions_auto()
+        chrome_options.binary_location = chrome_path
         driver = webdriver.Chrome(service=service, options=chrome_options)
-        # Gọi hàm hoặc hành động cần thiết cho mỗi trình duyệt sau khi mở
-        cygnus(driver)  # Giả sử đây là một hàm thực hiện hành động gì đó trên driver
+        
+        
+        cygnus(driver)
+        time.sleep(5)
+        # Giả sử đây là một hàm thực hiện hành động gì đó trên driver
         
         return driver  # Trả về driver sau khi mở trình duyệt thành công
     except Exception as e:

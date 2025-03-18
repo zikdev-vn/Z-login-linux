@@ -1,3 +1,6 @@
-2025/03/15-01:12:46.328 2f95c Reusing MANIFEST /home/zik/Documents/auto/profile_chrome/profile_8/Default/Session Storage/MANIFEST-000001
-2025/03/15-01:12:46.338 2f95c Recovering log #3
-2025/03/15-01:12:46.346 2f95c Reusing old log /home/zik/Documents/auto/profile_chrome/profile_8/Default/Session Storage/000003.log 
+2025/03/16-17:18:52.066 141b5 Reusing MANIFEST /home/zik/Documents/auto/profile_chrome/profile_8/Default/Session Storage/MANIFEST-000001
+2025/03/16-17:18:52.076 141b5 Recovering log #7
+2025/03/16-17:18:52.076 141b5 Reusing old log /home/zik/Documents/auto/profile_chrome/profile_8/Default/Session Storage/000007.log 
+2025/03/16-17:19:07.258 141be Level-0 table #11: started
+2025/03/16-17:19:08.146 141be Level-0 table #11: 770856 bytes OK
+2025/03/16-17:19:08.304 141be Delete type=0 #7

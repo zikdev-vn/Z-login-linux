@@ -1,3 +1,19 @@
-2025/03/15-16:43:27.136 49f21 Reusing MANIFEST /home/zik/Documents/auto/profile_chrome/profile_4/Default/Local Extension Settings/nkbihfbeogaeaoehlefnkodbefgpgknn/MANIFEST-000001
-2025/03/15-16:43:27.136 49f21 Recovering log #36
-2025/03/15-16:43:27.136 49f21 Reusing old log /home/zik/Documents/auto/profile_chrome/profile_4/Default/Local Extension Settings/nkbihfbeogaeaoehlefnkodbefgpgknn/000036.log 
+2025/03/16-17:19:02.848 14027 Reusing MANIFEST /home/zik/Documents/auto/profile_chrome/profile_4/Default/Local Extension Settings/nkbihfbeogaeaoehlefnkodbefgpgknn/MANIFEST-000001
+2025/03/16-17:19:02.849 14027 Recovering log #105
+2025/03/16-17:19:03.010 14027 Level-0 table #107: started
+2025/03/16-17:19:03.242 14027 Level-0 table #107: 10960898 bytes OK
+2025/03/16-17:19:03.283 14027 Delete type=0 #105
+2025/03/16-17:19:03.290 14028 Compacting 4@0 + 0@1 files
+2025/03/16-17:19:03.984 14028 Generated table #109@0: 1 keys, 10960898 bytes
+2025/03/16-17:19:04.005 14028 Compacted 4@0 + 0@1 files => 10960898 bytes
+2025/03/16-17:19:04.011 14028 compacted to: files[ 0 1 2 0 0 0 0 ]
+2025/03/16-17:19:04.013 14028 Compacting 1@1 + 1@2 files
+2025/03/16-17:19:04.359 14028 Generated table #110@1: 1 keys, 10960898 bytes
+2025/03/16-17:19:04.363 14028 Compacted 1@1 + 1@2 files => 10960898 bytes
+2025/03/16-17:19:04.381 14028 compacted to: files[ 0 0 2 0 0 0 0 ]
+2025/03/16-17:19:04.382 14028 Delete type=2 #109
+2025/03/16-17:19:04.382 14028 Delete type=2 #98
+2025/03/16-17:19:04.382 14028 Delete type=2 #96
+2025/03/16-17:19:04.382 14028 Delete type=2 #104
+2025/03/16-17:19:04.382 14028 Delete type=2 #107
+2025/03/16-17:19:04.382 14028 Delete type=2 #101

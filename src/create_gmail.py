@@ -2,7 +2,7 @@ import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
-from chromeoptions_auto.chrome_options_auto import chromeoptions_auto
+from src.chromeoptions_auto.chrome_options_auto import chromeoptions_auto
 
 
 
@@ -118,16 +118,16 @@ def generate_unique_gmail_name():
 
 # Kiểm tra xem tên Gmail đã tồn tại trong file chưa
 def is_email_exists(gmail_name):
-    if not os.path.exists("gmail_accounts.txt"):
+    if not os.path.exists("data/gmail_accounts.txt"):
         return False  # Nếu file chưa tồn tại thì không có email nào trùng
 
-    with open("gmail_accounts.txt", "r") as file:
+    with open("data/gmail_accounts.txt", "r") as file:
         emails = file.read().splitlines()
         return gmail_name in emails
 
 # Lưu Gmail vào file
 def save_email(gmail_name):
-    with open("gmail_accounts.txt", "a") as file:
+    with open("data/gmail_accounts.txt", "a") as file:
         file.write(gmail_name + "\n")
     print(f"Đã lưu Gmail: {gmail_name}")
 

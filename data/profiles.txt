@@ -1,0 +1,15 @@
+/home/zik/.config/google-chrome/profile_1
+/home/zik/.config/google-chrome/profile_2
+/home/zik/.config/google-chrome/profile_3
+/home/zik/.config/google-chrome/profile_4
+/home/zik/.config/google-chrome/profile_5
+/home/zik/.config/google-chrome/profile_6
+/home/zik/.config/google-chrome/profile_7
+/home/zik/.config/google-chrome/profile_8
+/home/zik/.config/google-chrome/profile_9
+/home/zik/.config/google-chrome/profile_10
+/home/zik/.config/google-chrome/profile1
+/home/zik/.config/google-chrome/profile2
+/home/zik/.config/google-chrome/profile3
+/home/zik/.config/google-chrome/profile4
+/home/zik/.config/google-chrome/profile5

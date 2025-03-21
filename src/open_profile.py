@@ -1,20 +1,21 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from chromeoptions_auto.chrome_options_auto import chromeoptions_auto,chrome_option_webgl
+from src.chromeoptions_auto.chrome_options_auto import chromeoptions_auto
 from concurrent.futures import ThreadPoolExecutor
-from autoweb.gmail import gmail
-from autoweb.createmetamask import create_metamask
-from autoweb.cygnus import cygnus
-from login_gmail import open_profiles_with_gmails
+from script_auto.gmail import gmail
+from script_auto.createmetamask import create_metamask
+from script_auto.cygnus import cygnus
+#from login_gmail import open_profiles_with_gmails
 import time
 chrome_path = r"/opt/google/chrome/chrome"
 #from auto_diskpay import arrange_windows
 
 chrome_driver_path = r"/home/zik/Documents/auto/chromedriver"
-profile_file = "profiles.txt"
+profile_file = "data/profiles.txt"
 
 def open_profiles():
+    
     if not os.path.exists(profile_file):
         print("⚠️ Không tìm thấy file profiles.txt! Hãy tạo profile trước.")
         return
@@ -63,7 +64,9 @@ def open_profiles():
 
 
 def open_single_profile(profile_path):
+    
     """Mở một trình duyệt với profile cụ thể và trả về driver"""
+    
     print(f"\n🚀 Đang mở trình duyệt với profile: {profile_path}")
     chrome_options = chromeoptions_auto()
     chrome_options.add_argument(f"--user-data-dir={profile_path}")
@@ -81,44 +84,45 @@ def open_single_profile(profile_path):
     
     return driver  # Trả về driver để có thể đóng sau này
 
-def open_multiple_profiles(profiles, drivers):
+def open_multiple_profiles(profiles, drivers, start_port=9222, port_file="ports.txt"):
+    
     """Mở tất cả các trình duyệt với danh sách profile song song"""
-    # Sử dụng ThreadPoolExecutor để mở các profile đồng thời
-    with ThreadPoolExecutor() as executor:
+    
+    with ThreadPoolExecutor() as executor, open(port_file, "w") as f:
         futures = []
-        for profile in profiles:
-            
-            chrome_options = chromeoptions_auto()  # Khởi tạo chrome_options
-            chrome_options.add_argument(f"--user-data-dir={profile}")  # Thêm tùy chọn cho profile
+        for i, profile in enumerate(profiles):
+            port = start_port + i  # Mỗi profile có một cổng riêng
+            chrome_options = chromeoptions_auto()
+            chrome_options.add_argument(f"--user-data-dir={profile}")
+            chrome_options.add_argument(f"--remote-debugging-port={port}")  # Thêm remote port
             chrome_options.binary_location = chrome_path
-            # Tạo futures cho mỗi profile với chrome_options được truyền vào
-            futures.append(executor.submit(open_single_profile_with_options, profile, chrome_options))
+            
+            futures.append(executor.submit(open_single_profile_with_options, profile, chrome_options, port, f))
 
-        # Chờ các thread hoàn tất và thu kết quả
         for future in futures:
-            driver = future.result()  # Chờ và lấy kết quả từ từng luồng
-            drivers.append(driver)
+            driver = future.result()
+            if driver:
+                drivers.append(driver)
 
-def open_single_profile_with_options(profile_path, chrome_options):
+def open_single_profile_with_options(profile_path, chrome_options, port, file):
+
     """Mở một trình duyệt với profile cụ thể và trả về driver, sử dụng chrome_options đã thiết lập"""
-    print(f"\n🚀 Đang mở trình duyệt với profile: {profile_path}")
+    
+    print(f"\n🚀 Đang mở trình duyệt với profile: {profile_path} trên cổng {port}")
+    file.write(f"Profile: {profile_path}, Port: {port}\n")  # Ghi thông tin vào file
     
     service = Service(chrome_driver_path)
     try:
-        chrome_options = chromeoptions_auto()
-        chrome_options.binary_location = chrome_path
         driver = webdriver.Chrome(service=service, options=chrome_options)
         
-        
-        cygnus(driver)
+        cygnus(driver)  # Gọi hàm xử lý riêng nếu cần
         time.sleep(5)
-        # Giả sử đây là một hàm thực hiện hành động gì đó trên driver
         
-        return driver  # Trả về driver sau khi mở trình duyệt thành công
+        return driver
     except Exception as e:
         print(f"❌ Lỗi khi mở profile {profile_path}: {e}")
-        return None  # Trả về None nếu có lỗi xảy ra
+        return None
 
-    return driver 
 if __name__ == "__main__":
     open_profiles()
+    

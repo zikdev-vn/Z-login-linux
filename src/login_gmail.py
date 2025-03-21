@@ -7,15 +7,15 @@ from concurrent.futures import ThreadPoolExecutor
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
-from chromeoptions_auto.chrome_options_auto import chromeoptions_auto
+from src.chromeoptions_auto.chrome_options_auto import chromeoptions_auto
 
 
 # Đường dẫn ChromeDriver
 chrome_driver_path = r"/home/zik/Documents/auto/chromedriver"
 
 # File chứa danh sách profile và Gmail
-profile_file = "profiles.txt"
-gmail_file = "gmail.txt"
+profile_file = "data/profiles.txt"
+gmail_file = "data/gmail.txt"
 
 def get_profiles():
     """Đọc danh sách profile từ file"""
@@ -124,5 +124,19 @@ def open_profiles_with_gmails():
             executor.submit(open_single_profile, profiles[i], gmails[i])
 
     print("✅ Đã khởi chạy xong tất cả trình duyệt!")
+
+
+def main_gmail():
+    print("Chọn thao tác:")
+    print("1. Mở profile Gmail")
+    print("2. Thoát")
+    
+    choice = input("Nhập lựa chọn: ").strip()
+    if choice == "1":
+        open_profiles_with_gmails()
+    elif choice == "2":
+        print("Thoát chương trình!")
+        exit()
+
 if __name__ == "__main__":
-    open_profiles_with_gmails()
+    main_gmail()

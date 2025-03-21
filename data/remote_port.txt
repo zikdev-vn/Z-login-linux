@@ -1,0 +1,10 @@
+Remote debugging port for profile 1: 9222
+Remote debugging port for profile 2: 9223
+Remote debugging port for profile 3: 9224
+Remote debugging port for profile 4: 9225
+Remote debugging port for profile 5: 9226
+Remote debugging port for profile 6: 9227
+Remote debugging port for profile 7: 9228
+Remote debugging port for profile 8: 9229
+Remote debugging port for profile 9: 9230
+Remote debugging port for profile 10: 9231

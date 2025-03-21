@@ -10,9 +10,9 @@ def chromeoptions_auto(profile_path=None):
 
 
     # webgl
-    chrome_options.add_argument("--use-gl=desktop")
-    chrome_options.add_argument("--ignore-gpu-blacklist")
-    chrome_options.add_argument("--enable-gpu-rasterization")
+    #chrome_options.add_argument("--use-gl=desktop")
+    #chrome_options.add_argument("--ignore-gpu-blacklist")
+    #chrome_options.add_argument("--enable-gpu-rasterization")
     chrome_options.add_argument("--enable-webgl")
       # Ẩn thanh thông tin Chrome
     # 1️⃣ Giảm phát hiện Selenium

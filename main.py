@@ -1,43 +1,54 @@
-from chromeoptions_auto.chrome_options_auto import chromeoptions_auto 
+
 from src.create_gmail import gmail
 from src.open_profile import open_profiles
-from src.autoweb.createmetamask import create_metamask
-from src.autoweb.cygnus import cygnus
-from src.autoweb.gmail import gmail
-
+from src.create_profile import create_profiles
+from script_auto.createmetamask import create_metamask
+from script_auto.cygnus import cygnus
+from script_auto.gmail import gmail
+from src.api.api_sql import api_sql
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from src import open_profile
 #from src import xapxepcuaso 
 from src import create_profile
-from src import gmail
+from src.login_gmail import main_gmail
+import curses
 
+def menu(stdscr):
+    curses.curs_set(0)
+    stdscr.clear()
+    menu_items = ["Mở profile trình duyệt", "Sắp xếp cửa sổ trình duyệt", "Tạo profile trình duyệt", "Mở API", "Thoát"]
+    current_index = 0
 
-def main():
     while True:
-        print("\n===== MENU CHÍNH =====")
-        print("1️⃣ Mở profile trình duyệt")
-        print("2️⃣ Sắp xếp cửa sổ trình duyệt")
-        print("3️⃣ Tạo profile trình duyệt")
-        print("4️⃣ Mở Gmail")
-        print("0️⃣ Thoát")
-
-        choice = input("Nhập lựa chọn của bạn: ").strip()
-
-        if choice == "1":
-            open_profile.open_profiles()
-        elif choice == "2":
-            print("dang phat trien \n")
-            #xapxepcuaso.arrange_windows()
-        elif choice == "3":
-            create_profile.create_profiles()
+        stdscr.clear()
+        stdscr.addstr("\n===== MENU CHÍNH =====\n")
+        for i, item in enumerate(menu_items):
+            if i == current_index:
+                stdscr.addstr(f"➡️  {item}\n", curses.A_REVERSE)
+            else:
+                stdscr.addstr(f"   {item}\n")
         
-        elif choice == "0":
-            print("👋 Thoát chương trình. Hẹn gặp lại!")
-            break
-        else:
-            print("⚠️ Lựa chọn không hợp lệ! Vui lòng nhập lại.")
+        key = stdscr.getch()
+        if key == curses.KEY_UP and current_index > 0:
+            current_index -= 1
+        elif key == curses.KEY_DOWN and current_index < len(menu_items) - 1:
+            current_index += 1
+        elif key == ord("\n"):  # Nhấn Enter để chọn
+            if current_index == 0:
+                open_profiles()
+            elif current_index == 1:
+                print("Đang phát triển\n")
+            elif current_index == 2:
+                create_profiles()
+            elif current_index == 3:
+                api_sql()
+            elif current_index == 4:
+                stdscr.addstr("👋 Thoát chương trình. Hẹn gặp lại!\n")
+                stdscr.refresh()
+                curses.napms(1000)
+                break
 
 if __name__ == "__main__":
-    main()
+    curses.wrapper(menu)
